@@ -1,11 +1,29 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 #Funciones para el analisis del proyecto Regionalización de la pobreza multidimensional en México 2016-2022
 # Autor: @Luis Armando García Rodríguez (GARMA) 
+
+import numpy as np
+import pandas as pd
+import joblib
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import classification_report
+
+import geopandas as gpd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.decomposition import SparsePCA
+from sklearn.cluster import KMeans
+import plotly.express as px
+import matplotlib.pyplot as plt
+
+
 
 def BASES_NAN(Base,año):
   NAN_de_base = pd.DataFrame(Base.isna().sum())
@@ -261,7 +279,7 @@ def representacion(ComponentesPrincipales,Base_Cluster):
     fig.show()
 
 def mapa_df(Base_Cluster):
-    Mexico_mapa = gpd.read_file("México_Estados.shp")
+    Mexico_mapa = gpd.read_file("/content/Regionalizacion_de_la_pobreza_en_Mexico_2016_2022/Mapas/México_Estados.shp")
     edos_nombres = ["Baja California","Baja California Sur","Nayarit","Jalisco","Aguascalientes","Guanajuato","Querétaro","Hidalgo","Michoacán","EDOMEX","CDMX","Colima","Morelos","Yucatán","Campeche","Puebla","Quintana Roo","Tlaxcala","Guerrero","Oaxaca","Tabasco","Chiapas","Sonora","Chihuahua","Coahuila","Sinaloa","Durango","Zacatecas","San Luis Potosí","Nuevo León","Tamaulipas","Veracruz"]
     Mexico_mapa["Estado"] = edos_nombres
     Mexico_mapa.set_index("Estado",inplace=True)
